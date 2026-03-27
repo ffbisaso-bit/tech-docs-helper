@@ -1,13 +1,13 @@
-# Tech Docs Helper
+Tech Docs Helper
 
 A production-grade zero-trust RAG system for technical documentation.
 
-This system does not assume retrieved information is correct.  
+This system does not assume retrieved information is correct.
 Every answer must pass evidence validation and verification before being returned.
 
 ---
 
-## What this system does
+What this system does
 
 Tech Docs Helper answers questions from technical documentation using a controlled pipeline.
 
@@ -15,34 +15,34 @@ It does not generate answers directly from retrieval.
 
 Instead, it enforces:
 
-- evidence-based answering  
-- confidence-driven decisions  
-- verification before output  
-- refusal when evidence is insufficient  
+evidence-based answering  
+confidence-driven decisions  
+verification before output  
+refusal when evidence is insufficient  
 
 The system can:
 
-- answer  
-- refuse  
-- escalate  
+answer  
+refuse  
+escalate  
 
 based on evidence and validation, not guesswork.
 
 ---
 
-## Core principle
+Core principle
 
 This is a zero-trust RAG system.
 
-- Retrieval is not trusted  
-- Generation is not trusted  
-- Only verified, evidence-backed answers are allowed  
+Retrieval is not trusted  
+Generation is not trusted  
+Only verified, evidence-backed answers are allowed  
 
 If evidence is weak or incomplete, the system refuses.
 
 ---
 
-## Architecture
+Architecture
 
 User Query  
 → Query Rewriting  
@@ -61,47 +61,47 @@ User Query
 
 ---
 
-## Run locally
+Run locally
 
-1. Create environment
-
+Create environment  
 python -m venv .venv  
 source .venv/bin/activate  
 
-2. Install dependencies
-
+Install dependencies  
 pip install -U pip  
 pip install langchain langchain-openai langchain-community langchain-text-splitters faiss-cpu python-dotenv pydantic  
 
-3. Add environment variables
+Add environment variables  
 
-Create a `.env` file:
+Create a .env file:
 
 OPENAI_API_KEY=your_openai_api_key_here  
 
-4. Run
-
+Run  
 python src/main.py  
 
 ---
 
-## Example behavior
+Example behavior
 
 Clear query  
+
 When do health checks run?  
-→ Health checks run every 15 seconds.
+→ Health checks run every 15 seconds.  
 
 Operational query  
+
 Why is the service restarting?  
-→ The service is restarting because containers failing three health checks restart automatically. Missing environment variables are a common root cause.
+→ The service is restarting because containers failing three health checks restart automatically. Missing environment variables are a common root cause.  
 
 Ambiguous query  
+
 When did it start?  
-→ ESCALATE (clarification required)
+→ ESCALATE (clarification required)  
 
 ---
 
-## Project structure
+Project structure
 
 src/  
 ├── main.py  
@@ -130,7 +130,7 @@ logs/
 
 ---
 
-## Tech stack
+Tech stack
 
 Python  
 LangChain  
@@ -140,10 +140,10 @@ Pydantic
 
 ---
 
-## System capability
+System capability
 
-- controlled retrieval  
-- evidence-based reasoning  
-- decision-gated generation  
-- verification-driven output  
-- observable system behavior via logs and drift signals  
+controlled retrieval  
+evidence-based reasoning  
+decision-gated generation  
+verification-driven output  
+observable system behavior via logs and drift signals  
