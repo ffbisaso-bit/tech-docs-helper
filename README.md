@@ -1,4 +1,4 @@
-Tech Docs Helper
+# Tech Docs Helper
 
 A production-grade zero-trust RAG system for technical documentation.
 
@@ -7,7 +7,7 @@ Every answer must pass evidence validation and verification before being returne
 
 ---
 
-What this system does
+## What this system does
 
 Tech Docs Helper answers questions from technical documentation using a controlled pipeline.
 
@@ -30,7 +30,7 @@ based on evidence and validation, not guesswork.
 
 ---
 
-Core principle
+## Core principle
 
 This is a zero-trust RAG system.
 
@@ -42,7 +42,7 @@ If evidence is weak or incomplete, the system refuses.
 
 ---
 
-Architecture
+## Architecture
 
 User Query  
 → Query Rewriting  
@@ -61,7 +61,7 @@ User Query
 
 ---
 
-Run locally
+## Run locally
 
 Create environment  
 python -m venv .venv  
@@ -82,7 +82,7 @@ python src/main.py
 
 ---
 
-Example behavior
+## Example behavior
 
 Clear query  
 
@@ -101,7 +101,7 @@ When did it start?
 
 ---
 
-Project structure
+## Project structure
 
 src/  
 ├── main.py  
@@ -130,7 +130,7 @@ logs/
 
 ---
 
-Tech stack
+##Tech stack
 
 Python  
 LangChain  
@@ -140,7 +140,7 @@ Pydantic
 
 ---
 
-System capability
+## System capability
 
 controlled retrieval  
 evidence-based reasoning  
