@@ -1,0 +1,16 @@
+# IDE
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+logs/
+
+# Env
+.env
+.env.*
+
+# macOS
+.DS_Store
