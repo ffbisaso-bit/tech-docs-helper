@@ -15,16 +15,16 @@ It does not generate answers directly from retrieval.
 
 Instead, it enforces:
 
-- evidence-based answering
-- confidence-driven decisions
-- verification before output
-- refusal when evidence is insufficient
+- evidence-based answering  
+- confidence-driven decisions  
+- verification before output  
+- refusal when evidence is insufficient  
 
 The system can:
 
-- answer
-- refuse
-- escalate
+- answer  
+- refuse  
+- escalate  
 
 based on evidence and validation, not guesswork.
 
@@ -32,7 +32,7 @@ based on evidence and validation, not guesswork.
 
 ## Core principle
 
-This is a **zero-trust RAG system**.
+This is a zero-trust RAG system.
 
 - Retrieval is not trusted  
 - Generation is not trusted  
@@ -57,158 +57,93 @@ User Query
 → Verification Loop  
 → ACT / REFUSE / ESCALATE  
 → Audit Log  
-→ Drift Detection
+→ Drift Detection  
 
 ---
 
-## Layer breakdown
+## Run locally
 
-### Query Rewriting
-Improves the query for retrieval while preserving exact user intent.
+1. Create environment
 
-Detects ambiguity and triggers escalation when intent cannot be safely inferred.
+python -m venv .venv  
+source .venv/bin/activate  
 
----
+2. Install dependencies
 
-### Hybrid Retrieval
-Combines:
+pip install -U pip  
+pip install langchain langchain-openai langchain-community langchain-text-splitters faiss-cpu python-dotenv pydantic  
 
-- dense retrieval (semantic meaning)
-- lexical retrieval (exact term matching)
+3. Add environment variables
 
-This improves recall and reduces missed evidence.
+Create a `.env` file:
 
----
+OPENAI_API_KEY=your_openai_api_key_here  
 
-### Retrieval Reranking
-Reorders retrieved documents to surface the most relevant evidence.
+4. Run
 
----
-
-### Context Refinement
-Filters and reduces retrieved content to the strongest, most relevant chunks.
-
----
-
-### Evidence Assessment
-Evaluates whether the retrieved content is sufficient to support answering.
-
----
-
-### Confidence Gate
-Transforms evidence strength into a confidence signal.
-
----
-
-### Arbitration
-Detects conflicting or inconsistent signals.
-
----
-
-### Decision Engine
-Determines whether the system should:
-
-- ANSWER
-- REFUSE
-- ESCALATE
-
----
-
-### Generation
-Produces an answer only if the decision engine allows it.
-
----
-
-### Verification Loop
-A second model validates:
-
-- the query
-- the evidence
-- the generated answer
-
-It can:
-
-- PASS the answer
-- request RETRY_RETRIEVAL
-- request RETRY_GENERATION
-- REFUSE
-- ESCALATE
-
----
-
-### ACT / REFUSE / ESCALATE
-Final system boundary.
-
-No answer is returned unless it passes all control layers.
-
----
-
-### Audit Log
-Stores full execution traces for every run.
-
----
-
-### Drift Detection
-Monitors system behavior over time to detect degradation in:
-
-- answer rate
-- refusal rate
-- verification success
+python src/main.py  
 
 ---
 
 ## Example behavior
 
-### Clear query
-Query:  
-`When do health checks run?`
+Clear query  
+When do health checks run?  
+→ Health checks run every 15 seconds.
 
-Output:  
-`Health checks run every 15 seconds.`
+Operational query  
+Why is the service restarting?  
+→ The service is restarting because containers failing three health checks restart automatically. Missing environment variables are a common root cause.
 
----
-
-### Operational query
-Query:  
-`Why is the service restarting?`
-
-The system retrieves evidence, validates it, and only answers if sufficient support exists.
-
----
-
-### Ambiguous query
-Query:  
-`When did it start?`
-
-Output:  
-Escalation due to unclear subject.
+Ambiguous query  
+When did it start?  
+→ ESCALATE (clarification required)
 
 ---
 
 ## Project structure
 
-```text
-src/
-├── main.py
-├── config.py
-├── loader.py
-├── vector_store.py
-├── rewrite_query.py
-├── hybrid_retrieval.py
-├── reranker.py
-├── refine_retrieval.py
-├── assess_evidence.py
-├── confidence_gate.py
-├── arbitrate_route.py
-├── decision_engine.py
-├── generate_answer.py
-├── verification_loop.py
-├── audit_log.py
-├── drift_detection.py
+src/  
+├── main.py  
+├── config.py  
+├── loader.py  
+├── vector_store.py  
+├── rewrite_query.py  
+├── hybrid_retrieval.py  
+├── reranker.py  
+├── refine_retrieval.py  
+├── assess_evidence.py  
+├── confidence_gate.py  
+├── arbitrate_route.py  
+├── decision_engine.py  
+├── generate_answer.py  
+├── verification_loop.py  
+├── audit_log.py  
+├── drift_detection.py  
 
-data/
-├── api_reference.txt
-├── deployment_guide.txt
-├── troubleshooting.txt
+data/  
+├── api_reference.txt  
+├── deployment_guide.txt  
+├── troubleshooting.txt  
 
-logs/
+logs/  
+
+---
+
+## Tech stack
+
+Python  
+LangChain  
+OpenAI  
+FAISS  
+Pydantic  
+
+---
+
+## System capability
+
+- controlled retrieval  
+- evidence-based reasoning  
+- decision-gated generation  
+- verification-driven output  
+- observable system behavior via logs and drift signals  
