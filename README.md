@@ -130,7 +130,7 @@ logs/
 
 ---
 
-##Tech stack
+## Tech stack
 
 Python  
 LangChain  
