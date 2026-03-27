@@ -1,0 +1,57 @@
+API Authentication
+
+All API requests require an Authorization header.
+
+Use bearer token format:
+
+Authorization: Bearer YOUR_API_KEY
+
+Tokens expire after 24 hours.
+
+Expired tokens return HTTP 401.
+
+Clients should refresh tokens before expiry.
+
+Rate Limits
+
+The API allows 120 requests per minute.
+
+When rate limits are exceeded, the server returns HTTP 429.
+
+Clients should wait 60 seconds before retrying.
+
+For burst traffic, exponential backoff is recommended.
+
+Retry Policy
+
+Safe retries apply only to GET requests.
+
+POST retries must use idempotency keys.
+
+Without idempotency keys, duplicate writes may occur.
+
+Timeouts
+
+Client timeout should be 30 seconds.
+
+Server timeout is 25 seconds.
+
+If timeout happens, retry only once.
+
+Pagination
+
+Large responses use cursor pagination.
+
+Each response returns next_cursor.
+
+Clients must pass next_cursor to retrieve following records.
+
+Error Handling
+
+Authentication failures should not be retried without checking token freshness.
+
+Rate limit failures should trigger wait-and-retry behavior.
+
+Validation failures return HTTP 400 and should be corrected before resubmission.
+
+Server failures return HTTP 500 and may be retried once if the request is idempotent.

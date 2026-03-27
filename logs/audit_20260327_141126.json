@@ -1,0 +1,52 @@
+{
+  "original_query": "When do health checks run?",
+  "rewritten_query": "When do health checks run?",
+  "needs_clarification": false,
+  "clarification_reason": "",
+  "initial_evidence": {
+    "enough_evidence": true,
+    "total_chunks": 3,
+    "average_overlap": 4.333333333333333,
+    "strong_chunks": 3,
+    "useful_chunks": 0,
+    "reason": "Evidence looks sufficient."
+  },
+  "initial_confidence": {
+    "confidence": "HIGH",
+    "score": 0.9,
+    "reason": "Multiple strong evidence chunks."
+  },
+  "initial_arbitration": {
+    "conflict": false,
+    "reasons": [
+      "No signal conflict detected."
+    ]
+  },
+  "initial_decision": {
+    "decision": "ANSWER",
+    "reason": "Evidence is sufficient and no conflict exists."
+  },
+  "verification_result": {
+    "verdict": "PASS",
+    "grounded": true,
+    "sufficient_evidence": true,
+    "reasoning": "The answer directly matches the statement in Source 1: 'Health checks run every 15 seconds.' No additional information or interpretation is added."
+  },
+  "final_decision": "ANSWER",
+  "attempts": 1,
+  "final_answer": "Health checks run every 15 seconds.",
+  "sources": [
+    {
+      "source": "deployment_guide.txt",
+      "content": "The service starts on port 8080.\n\nHealth checks run every 15 seconds.\n\nContainers failing three health checks restart automatically.\n\nThe readiness check confirms database connectivity before traffic is accepted.\n\nDatabase Connections\n\nConnection pool size defaults to 20."
+    },
+    {
+      "source": "troubleshooting.txt",
+      "content": "Repeated container restarts usually indicate failing health checks or missing required settings."
+    },
+    {
+      "source": "deployment_guide.txt",
+      "content": "Deployment Failures\n\nMost startup failures are caused by missing environment variables.\n\nIf the service restarts repeatedly, inspect health check failures first.\n\nIf the service is healthy but traffic fails, inspect readiness configuration."
+    }
+  ]
+}

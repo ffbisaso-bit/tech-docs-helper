@@ -1,0 +1,45 @@
+Troubleshooting Guide
+
+Login Failures
+
+If login fails repeatedly, first inspect token expiry.
+
+Expired tokens are the most common cause.
+
+If tokens are valid, inspect clock synchronization.
+
+A server clock drift above 60 seconds may invalidate signatures.
+
+Slow Responses
+
+Slow responses usually indicate database contention.
+
+Check active connections.
+
+If active connections exceed pool size, requests queue.
+
+High latency may also appear when too many replicas compete for the same database.
+
+Unexpected 500 Errors
+
+Most 500 errors originate from missing environment variables.
+
+Verify API_SECRET_KEY first.
+
+Then verify DATABASE_URL.
+
+If both are correct, inspect recent deployment changes.
+
+Retry Failures
+
+Repeated retry failures often happen when backoff is missing.
+
+Immediate retries can amplify load.
+
+Use exponential backoff between attempts.
+
+Startup Problems
+
+If the application fails during startup, inspect environment configuration before checking code changes.
+
+Repeated container restarts usually indicate failing health checks or missing required settings.

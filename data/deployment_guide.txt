@@ -1,0 +1,59 @@
+Deployment Guide
+
+Environment Variables
+
+The application requires three environment variables:
+
+APP_ENV
+DATABASE_URL
+API_SECRET_KEY
+
+Without API_SECRET_KEY, startup fails.
+
+Without DATABASE_URL, the service cannot connect to persistent storage.
+
+Container Startup
+
+The service starts on port 8080.
+
+Health checks run every 15 seconds.
+
+Containers failing three health checks restart automatically.
+
+The readiness check confirms database connectivity before traffic is accepted.
+
+Database Connections
+
+Connection pool size defaults to 20.
+
+If traffic increases, increase pool size carefully.
+
+Large pools may overload the database server.
+
+Idle connections should be closed after 30 seconds.
+
+Scaling Rules
+
+Horizontal scaling is preferred.
+
+Maximum recommended replicas: 6.
+
+Above six replicas, monitor queue saturation carefully.
+
+Scaling before database tuning may increase system instability.
+
+Logging
+
+Logs are written in JSON format.
+
+Each request includes trace_id.
+
+trace_id must remain consistent across service boundaries.
+
+Deployment Failures
+
+Most startup failures are caused by missing environment variables.
+
+If the service restarts repeatedly, inspect health check failures first.
+
+If the service is healthy but traffic fails, inspect readiness configuration.
